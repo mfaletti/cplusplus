@@ -199,10 +199,7 @@ int main() {
   tree->display();
   tree->remove(28);
   tree->display();
-  //tree->destroyTree();
-  //tree->display();
 
   delete tree;
-
   return 0;
 }
