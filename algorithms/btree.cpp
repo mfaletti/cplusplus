@@ -98,6 +98,8 @@ node* BST::remove(int key)
 
 node* BST::remove(node* t, int key)
 {
+  node* temp;
+
   // base case with empty node
   if (t == NULL)
     return NULL;
@@ -106,27 +108,27 @@ node* BST::remove(node* t, int key)
     t->left = remove(t->left, key); // look in left subtree
   } else if (key > t->data) {
     t->right = remove(t->right, key); // look in right subtree
+  } 
+  else {
+  // key has been found.
+  if (isLeafNode(t)){
+    delete t;
+    t = NULL;
+  } else if (t->right && t->left) {
+    // removing a node with two childen is tricky.
+    // first we find the minimum leaf on the right side of the node we're deleting.
+    // copy the data from the mimimum node to the node we're deleting.
+    // finally delete the minimum node in the right subtree. 
+    node* temp = findMin(t->right);
+    t->data = temp->data;
+    t->right = remove(t->right, t->data);
   } else {
-    // key has been found.
-    if (isLeafNode(t)){
-      delete t;
-      t = NULL;
-    } else if (t->right && t->left) {
-      // removing a node with two childen is tricky.
-      // first we find the minimum leaf on the right side of the node we're deleting.
-      // copy the data from the mimimum node to the node we're deleting.
-      // finally delete the minimum node in the right subtree. 
-      node* temp = findMin(t->right);
-      t->data = temp->data;
-      t->right = remove(t->right, t->data);
-    } else {
-      if (t->right == NULL) {
-        t = t->left;
-      } else if (t->left == NULL) {
-        t = t->right;
-      } else {
-      return NULL; // not found
-      }
+    temp = t;
+    if (t->right == NULL)
+      t = t->left;
+    else if (t->left == NULL)
+      t = t->right;
+      delete temp;
     }
   }
   // eventually returns root node after node removal completes
