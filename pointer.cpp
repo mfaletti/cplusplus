@@ -23,7 +23,7 @@ int main()
   cout <<"p is pointing to memory address "<<p;
   cout <<"\nvalue of x is "<< x <<". it is stored at memory address "<<&x;
 
-  p = &x; // assigning p to the address of k
+  p = &x; // assigning p to the address of x
   cout<<"\np is now pointing to memory address of x: "<<p;
 
   cout<<"\nThe value stored at the memory address p is currently pointing to: "<<*p;
