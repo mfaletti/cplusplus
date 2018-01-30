@@ -25,7 +25,7 @@ int min_diff(int list[], int k) {
 }
 
 int main() {
-  int arr[] = {-1};
+  int arr[] = {-1,2,2,9,4,7,8,11};
   int len = sizeof(arr)/sizeof(arr[0]);
 
   std::cout<<min_diff(arr, len);
