@@ -19,7 +19,7 @@ int isUnique(int list[], int k) {
 }
 
 int main() {
-  int list[] = {2,2,3,4};
+  int list[] = {2,3,4};
   int len = sizeof(list)/sizeof(list[0]);
 
   cout<<isUnique(list, len);
