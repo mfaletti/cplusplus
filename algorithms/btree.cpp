@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 using namespace std;
 
 struct node {
@@ -10,23 +11,26 @@ struct node {
 class BST 
 {
   node* root;
-  void insert(node*, int);
-  void destroyTree(node*);
   node* find(node*, int);
   node* findMin(node*);
   node* findMax(node*);
   node* remove(node*, int);
-  bool isLeafNode(node*);
+  void insert(node*, int);
+  void destroyTree(node*);
   void inOrder(node*);
+  void preOrder(node*);
+  void postOrder(node*);
+  void levelOrder(node*);
+  bool isLeafNode(node*);
 
 public:
   BST();
   ~BST();
   void insert(int);
   void destroyTree();
+  void display();
   node* remove(int);
   node* find(int);
-  void display();
 };
 
 BST::BST()
@@ -185,21 +189,66 @@ void BST::inOrder(node* t)
   }
 }
 
-void BST::display()
+void BST::preOrder(node* t)
 {
+  if (t != NULL) {
+    cout << t->data << " ";
+    preOrder(t->left);
+    preOrder(t->right);
+  }
+}
+
+void BST::postOrder(node* t)
+{
+  if (t != NULL) {
+    preOrder(t->left);
+    preOrder(t->right);
+    cout << t->data << " ";
+  }
+}
+void BST::display()
+{ 
+  cout<<"preOrder: ";
+  preOrder(root);
+  cout<<"\ninOrder: ";
   inOrder(root);
+  cout<<"\npostOrder: ";
+  postOrder(root);
+  cout<<"\nlevelOrder: ";
+  levelOrder(root);
+}
+
+void BST::levelOrder(node* t)
+{
+  if (t != NULL) {
+    queue<node*>q;
+    q.push(t);
+
+    while(!q.empty()) {
+      node* current = q.front();
+      cout<<current->data<<" ";
+      if (current->left)
+        q.push(current->left);
+      if (current->right)
+        q.push(current->right);
+      q.pop(); //remove the element at the front
+    }
+  }
 }
 
 int main() {
 
   BST* tree = new BST();
-  tree->insert(1);
-  tree->insert(2);
-  tree->insert(3);
-  tree->insert(22);
+  tree->insert(50);
+  tree->insert(19);
   tree->insert(28);
-  tree->display();
-  tree->remove(28);
+  tree->insert(40);
+  tree->insert(16);
+  tree->insert(70);
+  tree->insert(55);
+  tree->insert(56);
+  tree->insert(17);
+  tree->insert(90);
   tree->display();
 
   delete tree;
