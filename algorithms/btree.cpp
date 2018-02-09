@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 struct node {
@@ -31,6 +32,8 @@ public:
   void display();
   node* remove(int);
   node* find(int);
+  node* getRoot();
+  int maxdepth();
 };
 
 BST::BST()
@@ -201,8 +204,8 @@ void BST::preOrder(node* t)
 void BST::postOrder(node* t)
 {
   if (t != NULL) {
-    preOrder(t->left);
-    preOrder(t->right);
+    postOrder(t->left);
+    postOrder(t->right);
     cout << t->data << " ";
   }
 }
@@ -218,12 +221,16 @@ void BST::display()
   levelOrder(root);
 }
 
+// time complexity is always O(n). aaverage space complexity is O(n) for worst case. O(1) for best case
 void BST::levelOrder(node* t)
 {
   if (t != NULL) {
     queue<node*>q;
+
+    // enque root node
     q.push(t);
 
+    // deque root node, enque left and right children. exit loop when queue is empty.
     while(!q.empty()) {
       node* current = q.front();
       cout<<current->data<<" ";
@@ -234,6 +241,25 @@ void BST::levelOrder(node* t)
       q.pop(); //remove the element at the front
     }
   }
+}
+
+// returns the max root-to-leaf depth of the tree.
+// O(n)
+int maxDepth(node* t)
+{
+  if (t == NULL) {
+    return 0;
+  } else {
+    int ld = maxDepth(t->left);
+    int rd = maxDepth(t->right);
+
+    return (max(ld, rd) + 1);
+  }
+}
+
+node* BST::getRoot()
+{
+  return root;
 }
 
 int main() {
@@ -250,6 +276,7 @@ int main() {
   tree->insert(17);
   tree->insert(90);
   tree->display();
+  cout<<"\n"<<maxDepth(tree->getRoot());
 
   delete tree;
   return 0;

@@ -9,6 +9,7 @@ struct node {
 	int data;
 };
 
+// add a node to the tree
 node* insert(node* &t, int value)
 {
 	
@@ -26,6 +27,7 @@ node* insert(node* &t, int value)
 	return t;
 }
 
+// searches for a value and returns a pointer to the node if found
 node* search(node* t, int value)
 {
 	if (t == NULL)
@@ -39,6 +41,7 @@ node* search(node* t, int value)
 	}
 }
 
+// returns the minimum value in the tree
 node* findMin(node* t)
 {
 	if (t == NULL) {
@@ -48,6 +51,17 @@ node* findMin(node* t)
 		else return findMin(t->left);
 }
 
+// returns the maximum value in the tree
+node* findMax(node* t)
+{
+	if (t == NULL) {
+		return t;
+	} else if (t->right == NULL)
+			return t;
+		else return findMax(t->right);
+}
+
+// removes a node from the tree
 node* remove(node* &t, int value)
 {
 	if (t == NULL) {
@@ -79,6 +93,7 @@ node* remove(node* &t, int value)
 	return t;
 }
 
+// inOrder traversal
 void inOrder(node* t)
 {
 	if (t != NULL) {
@@ -88,6 +103,7 @@ void inOrder(node* t)
 	}
 }
 
+// preOrder traversal
 void preOrder(node* t)
 {
 	if (t != NULL) {
@@ -97,6 +113,7 @@ void preOrder(node* t)
 	}
 }
 
+// postOrder traversal
 void postOrder(node* t)
 {
 	if (t != NULL) {
@@ -159,6 +176,16 @@ void destroyTree(node* t)
 	delete t;
 }
 
+// returns the number of nodes in the tree. 
+int count(node* t)
+{
+	if (t == NULL) {
+		return 0;
+	} else {
+		return (count(t->right) + count(t->left)) + 1;
+	}
+}
+
 int main()
 {
 	node* root = NULL;
@@ -184,10 +211,16 @@ int main()
 	remove(root, 28);
 
 	// test findMin
-	cout<<findMin(root)->data<<"\n";
+	cout<<"min value: "<<findMin(root)->data<<"\n";
+
+	// test findMax
+	cout<<"max value: "<<findMax(root)->data<<"\n";
 
 	// test maxDepth
-	cout<<maxDepth(root);
+	cout<<"max depth: "<<maxDepth(root);
+
+	// test count
+	cout<<"\ncount: "<<count(root);
 
 	// test preOrder traversal
 	cout<<"\npreOrder: ";
