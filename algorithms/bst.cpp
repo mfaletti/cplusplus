@@ -93,7 +93,7 @@ node* remove(node* &t, int value)
 	return t;
 }
 
-// inOrder traversal
+// inOrder traversal (DFS)
 void inOrder(node* t)
 {
 	if (t != NULL) {
@@ -103,7 +103,7 @@ void inOrder(node* t)
 	}
 }
 
-// preOrder traversal
+// preOrder traversal (DFS)
 void preOrder(node* t)
 {
 	if (t != NULL) {
@@ -113,7 +113,7 @@ void preOrder(node* t)
 	}
 }
 
-// postOrder traversal
+// postOrder traversal (DFS)
 void postOrder(node* t)
 {
 	if (t != NULL) {
@@ -123,7 +123,7 @@ void postOrder(node* t)
 	}
 }
 
-// time complexity is always O(n). aaverage space complexity is O(n) for worst case. O(1) for best case
+// time complexity is always O(n). aaverage space complexity is O(n) for worst case.
 void levelOrder(node* t)
 {
 
